@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .main-container{
+            width: 90%;
+            margin: 30px auto;
+            background: linear-gradient(to right,pink,cyan);
+            padding: 50px 0;
+        }
+        h1 {
+            font-family: sans-serif;
+            color: white;
+            text-shadow: 1px 1px 3px black;
+            text-align: center;
+        }
+        #input-container {
+            margin-top: 70px;
+            text-align: center;
+        }
+        #input-box {
+            outline: none;
+            border: none;
+            font-size: 28px;
+            padding: 2px 4px;
+            width: 24%;
+            margin-right: 38%;
+        }
+        #input-box:focus{
+            box-shadow: 3px 3px 10px black;
+        }
+        .btn {
+            border: none;
+            outline: none;
+            background-color: white;
+            font-family: sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 14px;
+            border-radius: 23px;
+            box-shadow: 0 0 10px white;
+            cursor:pointer;
+        }
+
+        .main-counter {
+            width: 70%;
+            margin: 30px auto;
+            background-color: rgb(61, 60, 60);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        #counter {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            overflow: hidden;
+            position: relative;
+        }
+        #counter p {
+            font-size: 90px;
+            text-align: center;
+            background-color: white;
+            width: 100%;
+            height: 100%;
+        }
+
+        .next-num {
+            position: absolute;
+            top: 100px;
+        }   
+
+        p.animate{
+            transition: all .5s;
+            top: 0px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <h1>Enter any number between 0 and 9</h1>
+        <form>
+        </form>
+        <div id="input-container">
+            <input type="number" name="input-box" id="input-box">
+            <button class="btn" id="start-button">Start Counter</button>
+        </div>
+
+    </div>
+
+    <div class="main-counter">
+        <div id="counter">
+            <p class="current-num">0</p>
+            <p class="next-num">1</p>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+       var button = document.getElementById('start-button');
+       var inputBox = document.getElementById('input-box');
+       var currentDiv = document.querySelector('.current-num');
+       var nextDiv = document.querySelector('.next-num');
+
+       currentDiv.innerHTML = "0";
+       button.addEventListener('click', function(){
+           if(inputBox.value< 0 || inputBox.value > 9 || inputBox.value.length == 0){
+               window.alert("Wrong input");
+               return;
+           }
+           else{
+               let currentNum = 0;
+               let id = setInterval(function(){
+                   if(currentNum+1 > parseInt(inputBox.value)) {
+                       clearInterval(id);
+                       window.alert("Counter has stopped");
+                       currentDiv.innerHTML = "0";
+                       inputBox.value = ' ';
+                       return;
+                   }
+                   currentDiv.innerHTML = currentNum;
+                   nextDiv.innerHTML = currentNum + 1;
+                   nextDiv.classList.add("animate");
+                   setTimeout(function(){
+                        nextDiv.classList.remove("animate");
+                        currentDiv.innerHTML = nextDiv.innerHTML;
+                    }, 500);
+                   currentNum++;
+               }, 1000);
+           }        
+    })
+
+
+    </script>
+
+</body>
+</html>
